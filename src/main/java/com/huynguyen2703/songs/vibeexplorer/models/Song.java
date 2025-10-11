@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long songID;
 
     @Column(nullable = false)
     private String title;
@@ -22,16 +22,19 @@ public class Song {
     @Column(name = "release_year")
     private Integer releaseYear;
 
+    @OneToOne(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
+    private SongFeatures songFeatures;
+
     // Constructors
     public Song(
-            Long id,
+            Long songID,
             String title,
             String artist,
             String album,
             String genre,
             Integer releaseYear
     ) {
-        this.id = id;
+        this.songID = songID;
         this.title = title;
         this.artist = artist;
         this.album = album;
@@ -44,13 +47,12 @@ public class Song {
     }
 
     // Getters and Setters for JPA
-
     public Long getID() {
-        return this.id;
+        return this.songID;
     }
 
-    public void setID(Long id) {
-        this.id = id;
+    public void setID(Long songID) {
+        this.songID = songID;
     }
 
     public String getTitle() {

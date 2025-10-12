@@ -9,6 +9,14 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long songID;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "songGraphID")
+    private SongGraph songGraph;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "songClusterID")
+    private SongCluster songCluster;
+
     @Column(nullable = false)
     private String title;
 
@@ -19,7 +27,6 @@ public class Song {
 
     private String genre;
 
-    @Column(name = "release_year")
     private Integer releaseYear;
 
     @OneToOne(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -28,6 +35,8 @@ public class Song {
     // Constructors
     public Song(
             Long songID,
+            SongGraph songGraph,
+            SongCluster songCluster,
             String title,
             String artist,
             String album,
@@ -35,6 +44,8 @@ public class Song {
             Integer releaseYear
     ) {
         this.songID = songID;
+        this.songGraph = songGraph;
+        this.songCluster = songCluster;
         this.title = title;
         this.artist = artist;
         this.album = album;
@@ -53,6 +64,22 @@ public class Song {
 
     public void setID(Long songID) {
         this.songID = songID;
+    }
+
+    public SongGraph getSongGraph() {
+        return songGraph;
+    }
+
+    public void setSongGraph(SongGraph songGraph) {
+        this.songGraph = songGraph;
+    }
+
+    public SongCluster getSongCluster() {
+        return songCluster;
+    }
+
+    public void setSongCluster(SongCluster songCluster) {
+        this.songCluster = songCluster;
     }
 
     public String getTitle() {

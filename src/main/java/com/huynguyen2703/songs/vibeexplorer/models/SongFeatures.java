@@ -113,6 +113,12 @@ public class SongFeatures {
         }
     }
 
+    @PrePersist
+    @PreUpdate
+    private void updateFeatureVector() {
+        buildFeatureVector();
+    }
+
     // Getters and Setters for JPA
     public Long getSongFeatureID() {
         return songFeatureID;

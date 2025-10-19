@@ -21,7 +21,7 @@ public class SongService {
         return songRepository.save(song);
     }
 
-    public List<Song> getAllSongs () {
+    public List<Song> getAllSongs() {
         return songRepository.findAll();
     }
 
@@ -31,5 +31,19 @@ public class SongService {
 
     public void deleteSong(Song song) {
         songRepository.delete(song);
+    }
+
+    public List<Song> searchSong(String artist, String title) {
+        if (artist == null && title == null) {
+            return songRepository.findAll();
+        }
+        if (artist == null) {
+            return songRepository.findByTitleContainingIgnoreCase(title);
+        }
+        if (title == null) {
+            return songRepository.findByArtistContainingIgnoreCase(artist);
+        } else {
+            return songRepository.findByArtistContainingIgnoreCaseAndTitleContainingIgnoreCase(artist, title);
+        }
     }
 }

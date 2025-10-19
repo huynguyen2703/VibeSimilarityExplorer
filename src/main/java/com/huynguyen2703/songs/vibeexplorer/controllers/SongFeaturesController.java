@@ -25,5 +25,4 @@ public class SongFeaturesController {
         Optional<SongFeatures> songFeatures = songFeaturesService.getSongFeatureBySongId(songId);
         return songFeatures.orElseThrow(() -> new RuntimeException("Song features not found"));
     }
-
 }

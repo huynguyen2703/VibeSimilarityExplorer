@@ -25,6 +25,10 @@ public class SongFeaturesService {
         return songFeaturesRepository.findById(id);
     }
 
+    public Optional<SongFeatures> getSongFeatureBySongId(Long songId) {
+        return songFeaturesRepository.findBySongId(songId);
+    }
+
     public List<SongFeatures> getAllSongFeatures() {
         return songFeaturesRepository.findAll();
     }

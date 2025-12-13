@@ -26,7 +26,7 @@ public class SongController {
 
     @GetMapping("/{id}")
     public Optional<Song> getSongById(@PathVariable Long id) {
-        return songService.findSongById(id);
+        return songService.findSongBySongId(id);
     }
 
     @GetMapping("/search")

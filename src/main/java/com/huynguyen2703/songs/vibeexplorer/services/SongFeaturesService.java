@@ -26,7 +26,7 @@ public class SongFeaturesService {
     }
 
     public Optional<SongFeatures> getSongFeatureBySongId(Long songId) {
-        return songFeaturesRepository.findBySongId(songId);
+        return songFeaturesRepository.findBySongID(songId);
     }
 
     public List<SongFeatures> getAllSongFeatures() {

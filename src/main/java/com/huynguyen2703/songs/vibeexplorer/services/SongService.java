@@ -25,7 +25,7 @@ public class SongService {
         return songRepository.findAll();
     }
 
-    public Optional<Song> findSongById(Long id) {
+    public Optional<Song> findSongBySongId(Long id) {
         return songRepository.findById(id);
     }
 

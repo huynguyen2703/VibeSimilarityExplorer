@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface SongFeaturesRepository extends JpaRepository<SongFeatures, Long>{
     // JpaRepository already provides basic CRUD methods:
     // save(), findById(), findAll(), deleteById(), etc.
-    Optional<SongFeatures> findBySongId(Long songId);
+    Optional<SongFeatures> findBySongID(Long songId);
 }

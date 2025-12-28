@@ -8,5 +8,6 @@ public record SpotifyTrackDto (
         String duration_ms,
         Integer popularity,
         SpotifyAlbumDto album,
+        Integer releaseYear,
         List<SpotifyArtistDto> artists
 ) {}

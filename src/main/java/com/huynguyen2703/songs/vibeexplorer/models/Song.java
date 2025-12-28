@@ -34,7 +34,6 @@ public class Song {
 
     // Constructors
     public Song(
-            Long songID,
             SongGraph songGraph,
             SongCluster songCluster,
             String title,
@@ -43,7 +42,6 @@ public class Song {
             String genre,
             Integer releaseYear
     ) {
-        this.songID = songID;
         this.songGraph = songGraph;
         this.songCluster = songCluster;
         this.title = title;

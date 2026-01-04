@@ -46,4 +46,14 @@ public class SongService {
             return songRepository.findByArtistContainingIgnoreCaseAndTitleContainingIgnoreCase(artist, title);
         }
     }
+
+    public Optional<Song> findBySpotifyId(String spotifyId) {
+        return songRepository.findBySpotifyId(spotifyId);
+    }
+
+    public Song saveIfNotExists(Song song) {
+        return songRepository
+                .findBySpotifyId(song.getSpotifyId())
+                .orElseGet(() -> songRepository.save(song));
+    }
 }

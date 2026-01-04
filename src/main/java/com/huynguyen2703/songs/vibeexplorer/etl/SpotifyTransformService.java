@@ -42,18 +42,26 @@ public class SpotifyTransformService {
         List<SpotifyTrackDto> spotifyTracks = spotifyTracksDto.items();
         List<Song> songs = new ArrayList<>();
         for (SpotifyTrackDto spotifyTrack : spotifyTracks) {
+            String spotifyId = extractSpotifyId(spotifyTrack.id().trim());
+            if (spotifyId == null) {
+                System.out.println("Skipping track without Spotify ID: " + spotifyTrack.name());
+                continue;
+            }
+
             List<SpotifyArtistDto> artists = spotifyTrack.artists();
             SpotifyAlbumDto album = spotifyTrack.album();
 
+
             SongGraph songGraph = null;
             SongCluster songCluster = null;
-            String songName = spotifyTrack.name();
+            String songName = spotifyTrack.name().trim();
             String artistName = extractArtistName(artists);
             String albumName = extractAlbumName(album);
             String genre = null;
             Integer releaseYear = spotifyTrack.releaseYear();
 
             Song song = new Song(
+                    spotifyId,
                     songGraph,
                     songCluster,
                     songName,
@@ -76,5 +84,12 @@ public class SpotifyTransformService {
 
     private String extractAlbumName(SpotifyAlbumDto album) {
         return album != null ? album.name(): UNKNOWN;
+    }
+
+    private String extractSpotifyId(String spotifyId) {
+        if (spotifyId == null || spotifyId.isEmpty()) {
+            return null;
+        }
+        return spotifyId;
     }
 }

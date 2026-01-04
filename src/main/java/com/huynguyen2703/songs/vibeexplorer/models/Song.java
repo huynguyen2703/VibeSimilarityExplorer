@@ -9,6 +9,9 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long songID;
 
+    @Column(nullable = false, unique=true)
+    private String spotifyId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "songGraphID")
     private SongGraph songGraph;
@@ -34,6 +37,7 @@ public class Song {
 
     // Constructors
     public Song(
+            String spotifyId,
             SongGraph songGraph,
             SongCluster songCluster,
             String title,
@@ -42,6 +46,7 @@ public class Song {
             String genre,
             Integer releaseYear
     ) {
+        this.spotifyId = spotifyId;
         this.songGraph = songGraph;
         this.songCluster = songCluster;
         this.title = title;
@@ -62,6 +67,14 @@ public class Song {
 
     public void setID(Long songID) {
         this.songID = songID;
+    }
+
+    public String getSpotifyId() {
+        return spotifyId;
+    }
+
+    public void setSpotifyId(String spotifyId) {
+        this.spotifyId = spotifyId;
     }
 
     public SongGraph getSongGraph() {
@@ -118,6 +131,19 @@ public class Song {
 
     public void setReleaseYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Song)) return false;
+        Song song = (Song) o;
+        return spotifyId.equals(song.spotifyId);
+    }
+
+    @Override
+    public int hashCode() {
+        return spotifyId.hashCode();
     }
 
 }

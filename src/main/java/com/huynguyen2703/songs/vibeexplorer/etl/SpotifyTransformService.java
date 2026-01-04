@@ -34,28 +34,24 @@ import java.util.List;
 
 
 public class SpotifyTransformService {
-
+    private static final String UNKNOWN = "Unknown";
     public List<Song> transformTracks(SpotifyTracksDto spotifyTracksDto) {
+        if (spotifyTracksDto == null || spotifyTracksDto.items() == null) {
+            return List.of();
+        }
         List<SpotifyTrackDto> spotifyTracks = spotifyTracksDto.items();
         List<Song> songs = new ArrayList<>();
         for (SpotifyTrackDto spotifyTrack : spotifyTracks) {
-            String songName = spotifyTrack.name();
-            SpotifyAlbumDto album = spotifyTrack.album();
-            Integer releaseYear = spotifyTrack.releaseYear();
-            String artistName;
-
             List<SpotifyArtistDto> artists = spotifyTrack.artists();
-
-            if (artists != null && !artists.isEmpty()) {
-                artistName = artists.get(0).name();
-            } else {
-                artistName = "Unknown";
-            }
-            String albumName = (album != null) ? album.name() : "Unknown";
+            SpotifyAlbumDto album = spotifyTrack.album();
 
             SongGraph songGraph = null;
             SongCluster songCluster = null;
+            String songName = spotifyTrack.name();
+            String artistName = extractArtistName(artists);
+            String albumName = extractAlbumName(album);
             String genre = null;
+            Integer releaseYear = spotifyTrack.releaseYear();
 
             Song song = new Song(
                     songGraph,
@@ -69,5 +65,16 @@ public class SpotifyTransformService {
             songs.add(song);
         }
         return songs;
+    }
+
+    private String extractArtistName(List<SpotifyArtistDto> artists) {
+        if (artists == null || artists.isEmpty()) {
+            return UNKNOWN;
+        }
+        return artists.get(0).name();
+    }
+
+    private String extractAlbumName(SpotifyAlbumDto album) {
+        return album != null ? album.name(): UNKNOWN;
     }
 }

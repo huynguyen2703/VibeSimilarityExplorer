@@ -56,4 +56,9 @@ public class SongService {
                 .findBySpotifyId(song.getSpotifyId())
                 .orElseGet(() -> songRepository.save(song));
     }
+
+    public List<Song> saveAll(List<Song> songs) {
+        return songRepository.saveAll(songs);
+    }
+
 }

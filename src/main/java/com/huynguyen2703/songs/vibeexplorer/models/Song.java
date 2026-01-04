@@ -132,18 +132,4 @@ public class Song {
     public void setReleaseYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Song)) return false;
-        Song song = (Song) o;
-        return spotifyId.equals(song.spotifyId);
-    }
-
-    @Override
-    public int hashCode() {
-        return spotifyId.hashCode();
-    }
-
 }

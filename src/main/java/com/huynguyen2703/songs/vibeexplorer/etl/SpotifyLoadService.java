@@ -42,7 +42,7 @@ public class SpotifyLoadService {
      * Skips duplicates in memory and in DB.
      */
     @Transactional
-    public void loadSongs(List<Song> songs) {
+    public void loadSongs(List<Song> songs, int batchSize) {
         if (songs == null || songs.isEmpty()) return;
 
         System.out.println("Starting to load " + songs.size() + " songs...");
@@ -63,11 +63,16 @@ public class SpotifyLoadService {
                 .filter(song -> songService.findBySpotifyId(song.getSpotifyId()).isEmpty())
                 .toList();
 
-        System.out.println("Deduplicated songs count: " + uniqueSongs.size());
+        System.out.println("Deduplicated songs count: " + newSongs.size());
 
-        // Save all at once
-        songService.saveAll(newSongs);
-        System.out.println("Persisted " + newSongs.size() + " new songs in batch.");
+        // Batch Inserts
+        for (int startBatch = 0; startBatch < newSongs.size(); startBatch += batchSize) {
+            int endBatch = Math.min(startBatch + batchSize, newSongs.size());
+
+            List<Song> batchSongs = newSongs.subList(startBatch, endBatch);
+            songService.saveAll(batchSongs);
+            System.out.println("Persisted batch " + (startBatch / batchSize + 1) + " with " + batchSongs.size() + " songs.");
+        }
     }
 
 }

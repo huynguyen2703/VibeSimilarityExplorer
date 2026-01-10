@@ -2,6 +2,7 @@ package com.huynguyen2703.songs.vibeexplorer.etl;
 import com.huynguyen2703.songs.vibeexplorer.dto.spotify.SpotifyTracksDto;
 import com.huynguyen2703.songs.vibeexplorer.services.externals.SpotifyApiService;
 import com.huynguyen2703.songs.vibeexplorer.services.externals.SpotifyAuthService;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 
@@ -28,7 +29,7 @@ import reactor.core.publisher.Mono;
  */
 
 
-
+@Service
 public class SpotifyExtractService {
     SpotifyAuthService spotifyAuthService;
     SpotifyApiService spotifyApiService;

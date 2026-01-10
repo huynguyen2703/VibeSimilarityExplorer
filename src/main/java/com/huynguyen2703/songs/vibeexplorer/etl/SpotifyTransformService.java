@@ -7,6 +7,7 @@ import com.huynguyen2703.songs.vibeexplorer.dto.spotify.SpotifyTracksDto;
 import com.huynguyen2703.songs.vibeexplorer.models.Song;
 import com.huynguyen2703.songs.vibeexplorer.models.SongCluster;
 import com.huynguyen2703.songs.vibeexplorer.models.SongGraph;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ import java.util.List;
     Ensure transformations are pure (no DB calls)
  */
 
-
+@Service
 public class SpotifyTransformService {
     private static final String UNKNOWN = "Unknown";
     public List<Song> transformTracks(SpotifyTracksDto spotifyTracksDto) {

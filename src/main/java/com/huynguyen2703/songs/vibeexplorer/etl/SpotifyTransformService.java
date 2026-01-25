@@ -13,29 +13,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/*
-    Responsibility:
-
-    Convert Spotify DTOs → Domain entities (Song, SongFeatures, etc.)
-
-    TODOs:
-
-    Map track name → Song.title
-
-    Flatten artists array → Song.artist
-
-    Extract album name & release year
-
-    Decide genre strategy (artist-based? later)
-
-    Handle missing / optional Spotify fields
-
-    Ensure transformations are pure (no DB calls)
+/**
+ * Service responsible for transforming Spotify API DTOs into domain {@link Song} entities.
+ * <p>
+ * Responsibilities:
+ * <ul>
+ *     <li>Convert {@link SpotifyTracksDto} → {@link Song}</li>
+ *     <li>Flatten multiple artists into a single artist string</li>
+ *     <li>Extract album information and release year</li>
+ *     <li>Handle optional or missing Spotify fields gracefully</li>
+ *     <li>Ensure transformation is pure (no DB calls, no side effects)</li>
+ * </ul>
+ * <p>
+ * TODOs:
+ * <ul>
+ *     <li>Map track name → {@link Song#title}</li>
+ *     <li>Decide genre mapping strategy (artist-based or external)</li>
+ *     <li>Handle SongGraph and SongCluster assignment (later)</li>
+ * </ul>
  */
 
 @Service
 public class SpotifyTransformService {
     private static final String UNKNOWN = "Unknown";
+
     public List<Song> transformTracks(SpotifyTracksDto spotifyTracksDto) {
         if (spotifyTracksDto == null || spotifyTracksDto.items() == null) {
             return List.of();

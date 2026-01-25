@@ -5,12 +5,26 @@ import jakarta.persistence.*;
 import java.util.List;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a song graph, which organizes songs into a network or relationship structure.
+ * <p>
+ * This entity maps to the {@code song_graph} table. It is used to group songs according to
+ * graph-based algorithms (e.g., similarity graphs, embeddings, or connected clusters) and
+ * maintains metadata about the algorithm and description.
+ * <p>
+ * Key responsibilities:
+ * <ul>
+ *     <li>Store metadata about the graph such as name, algorithm used, and description</li>
+ *     <li>Maintain a list of songs associated with this graph</li>
+ *     <li>Track creation timestamp</li>
+ * </ul>
+ */
 @Entity
 @Table(name = "song_graph")
 public class SongGraph {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long songGraphID;
+    private Long songGraphId;
 
     private String songGraphName;
 
@@ -34,7 +48,7 @@ public class SongGraph {
             String algorithm,
             String description
     ) {
-        this.songGraphID = songGraphID;
+        this.songGraphId = songGraphID;
         this.songGraphName = songGraphName;
         this.algorithm = algorithm;
         this.description = description;
@@ -42,11 +56,11 @@ public class SongGraph {
 
     // Getters and Setters for JPA
     public Long getSongGraphID() {
-        return songGraphID;
+        return songGraphId;
     }
 
     public void setSongGraphID(Long songGraphID) {
-        this.songGraphID = songGraphID;
+        this.songGraphId = songGraphID;
     }
 
     public String getSongGraphName() {

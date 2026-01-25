@@ -2,22 +2,38 @@ package com.huynguyen2703.songs.vibeexplorer.models;
 
 import jakarta.persistence.*;
 
+
+/**
+ * Represents a Song entity in the system.
+ * <p>
+ * This class maps to the {@code song} table in the database and stores
+ * all relevant information about a song, including its Spotify ID, metadata,
+ * and relationships to SongGraph, SongCluster, and SongFeatures.
+ * <p>
+ * Key responsibilities:
+ * <ul>
+ *     <li>Persist song metadata such as title, artist, album, genre, release year</li>
+ *     <li>Maintain relationships with {@link SongGraph} and {@link SongCluster}</li>
+ *     <li>Support cascading operations with {@link SongFeatures}</li>
+ *     <li>Ensure uniqueness of Spotify ID</li>
+ * </ul>
+ */
 @Entity
 @Table(name = "song")
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long songID;
+    private Long songId;
 
     @Column(nullable = false, unique=true)
     private String spotifyId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "songGraphID")
+    @JoinColumn(name = "songGraphId")
     private SongGraph songGraph;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "songClusterID")
+    @JoinColumn(name = "songClusterId")
     private SongCluster songCluster;
 
     @Column(nullable = false)
@@ -62,11 +78,11 @@ public class Song {
 
     // Getters and Setters for JPA
     public Long getID() {
-        return this.songID;
+        return this.songId;
     }
 
     public void setID(Long songID) {
-        this.songID = songID;
+        this.songId = songID;
     }
 
     public String getSpotifyId() {

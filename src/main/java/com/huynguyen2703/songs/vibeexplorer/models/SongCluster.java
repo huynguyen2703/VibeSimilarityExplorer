@@ -4,13 +4,27 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
+/**
+ * Represents a cluster of songs, typically generated from clustering algorithms
+ * based on song features or similarities.
+ * <p>
+ * This entity maps to the {@code song_cluster} table in the database and
+ * maintains a one-to-many relationship with {@link Song}.
+ * <p>
+ * Key responsibilities:
+ * <ul>
+ *     <li>Store metadata about the cluster such as name, size, and algorithm used</li>
+ *     <li>Track creation time for auditing and analysis</li>
+ *     <li>Manage the list of songs that belong to this cluster</li>
+ *     <li>Support cascading operations to associated songs</li>
+ * </ul>
+ */
 @Entity
 @Table(name = "song_cluster")
 public class SongCluster {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long songClusterID;
+    private Long songClusterId;
 
     private String songClusterName;
 
@@ -34,7 +48,7 @@ public class SongCluster {
             Integer clusterSize,
             String algorithm
     ) {
-        this.songClusterID = songClusterID;
+        this.songClusterId = songClusterID;
         this.songClusterName = songClusterName;
         this.clusterSize = clusterSize;
         this.algorithm = algorithm;
@@ -42,11 +56,11 @@ public class SongCluster {
 
     // Getters and Setters for JPA
     public Long getSongClusterID () {
-        return songClusterID;
+        return songClusterId;
     }
 
     public void setSongClusterID (Long songClusterID) {
-        this.songClusterID = songClusterID;
+        this.songClusterId = songClusterID;
     }
 
     public String getSongClusterName () {

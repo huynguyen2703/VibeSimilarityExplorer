@@ -4,15 +4,30 @@ import jakarta.persistence.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Represents the audio features of a song, derived from Spotify's audio analysis.
+ * <p>
+ * This entity maps to the {@code song_features} table and is linked one-to-one with {@link Song}.
+ * It contains numeric features used for clustering, recommendation, and similarity analysis.
+ * <p>
+ * Key responsibilities:
+ * <ul>
+ *     <li>Store low-level audio features such as danceability, energy, tempo, and valence</li>
+ *     <li>Maintain a serialized {@code featureVector} for machine learning / ETL use</li>
+ *     <li>Automatically build the feature vector before persisting or updating</li>
+ *     <li>Link back to the parent Song entity</li>
+ * </ul>
+ */
+
 @Entity
 @Table(name = "song_features")
 public class SongFeatures {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long songFeatureID;
+    private Long songFeatureId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "songID", unique=true, nullable=false)
+    @JoinColumn(name = "songId", unique=true, nullable=false)
     private Song song;
 
     private Float danceability;
@@ -71,7 +86,7 @@ public class SongFeatures {
             Integer duration_ms,
             String analysis_url
     ) {
-        this.songFeatureID = songFeatureID;
+        this.songFeatureId = songFeatureID;
         this.song = song;
         this.danceability = danceability;
         this.energy = energy;
@@ -121,11 +136,11 @@ public class SongFeatures {
 
     // Getters and Setters for JPA
     public Long getSongFeatureID() {
-        return songFeatureID;
+        return songFeatureId;
     }
 
     public void setSongFeatureID(Long songFeatureID) {
-        this.songFeatureID = songFeatureID;
+        this.songFeatureId = songFeatureID;
     }
 
     public Song getSong() {

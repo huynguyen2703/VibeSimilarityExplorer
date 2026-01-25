@@ -10,25 +10,24 @@ import java.util.List;
 import java.util.Map;
 
 
-/*
-    Responsibility:
-
-    Persist transformed entities into the database
-
-    TODOs:
-
-    Inject SongService
-
-    Decide upsert strategy (by Spotify track ID / ISRC)
-
-    Avoid duplicate song insertion
-
-    Handle cascading save (SongFeatures)
-
-    Batch inserts for performance (later)
+/**
+ * Service responsible for persisting transformed {@link Song} entities into the database.
+ * <p>
+ * Responsibilities:
+ * <ul>
+ *     <li>Deduplicate songs in memory based on {@code spotifyId}</li>
+ *     <li>Check against the database to avoid duplicate insertions</li>
+ *     <li>Perform batch inserts to improve database write performance</li>
+ *     <li>Handle cascading save operations (e.g., {@code SongFeatures})</li>
+ *     <li>Transactional by default to ensure consistency</li>
+ * </ul>
+ * <p>
+ * TODOs:
+ * <ul>
+ *     <li>Decide on upsert strategy (by Spotify ID or ISRC)</li>
+ *     <li>Enhance error handling for database failures</li>
+ * </ul>
  */
-
-
 @Service
 public class SpotifyLoadService {
     private final SongService songService;

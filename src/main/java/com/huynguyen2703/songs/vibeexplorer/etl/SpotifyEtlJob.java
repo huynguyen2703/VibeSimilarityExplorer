@@ -6,26 +6,19 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-/*
-    Responsibility:
-
-    Orchestrates the full ETL flow: Extract → Transform → Load
-
-    TODOs:
-
-    Define runEtl() method
-
-    Call extract service to fetch raw Spotify data
-
-    Pass raw data to transform service
-
-    Pass transformed entities to load service
-
-    Handle logging and high-level error handling
-*/
-
-
-
+/**
+ * Orchestrates the full Spotify ETL flow: Extract → Transform → Load.
+ * <p>
+ * This component manages the complete pipeline:
+ * <ul>
+ *   <li>Extract raw track data from Spotify API</li>
+ *   <li>Transform DTOs into domain {@link Song} entities</li>
+ *   <li>Load transformed entities into the database using {@link SpotifyLoadService}</li>
+ * </ul>
+ * <p>
+ * Includes error handling, retry logic, logging, and respects configuration defined
+ * in {@link SpotifyEtlConfig}.
+ */
 @Component
 public class SpotifyEtlJob {
     private final SpotifyEtlConfig spotifyEtlConfig;

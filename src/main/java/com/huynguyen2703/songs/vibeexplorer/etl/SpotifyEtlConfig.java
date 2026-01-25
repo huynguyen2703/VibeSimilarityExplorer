@@ -3,23 +3,25 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 
-/*
-    Responsibility:
-
-    Centralize ETL-related configuration
-
-    TODOs:
-
-    Define batch sizes
-
-    Define max pages per run
-
-    Define default search keywords / artists
-
-    Externalize configs to application.yml
+/**
+ * Configuration class for the Spotify ETL pipeline.
+ * <p>
+ * Centralizes ETL-related settings, including batch sizes, paging, search keywords,
+ * market, and scheduling options. Supports externalization via application.properties
+ * or application.yml using the prefix "spotify.etl".
+ * </p>
+ * <p>
+ * Defaults allow the ETL pipeline to run in development without additional configuration:
+ * <ul>
+ *   <li>batchSize = 50</li>
+ *   <li>maxPages = 10</li>
+ *   <li>defaultKeywords = ["pop","ballad","hiphop","r&b"]</li>
+ *   <li>market = "VN"</li>
+ *   <li>schedulingEnabled = true</li>
+ *   <li>cron = "0 0 0 * * 5" (every Friday at midnight)</li>
+ * </ul>
+ * </p>
  */
-
-
 @Configuration
 @ConfigurationProperties(prefix = "spotify.etl")
 public class SpotifyEtlConfig {

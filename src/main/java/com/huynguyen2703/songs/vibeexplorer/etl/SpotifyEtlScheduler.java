@@ -4,23 +4,19 @@ import org.springframework.scheduling.annotation.Scheduled;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-/*
-    Responsibility:
-
-    Trigger an ETL job on a schedule
-
-    TODOs:
-
-    Use @Scheduled
-
-    Decide a cron interval (e.g., nightly, hourly)
-
-    Prevent overlapping runs
-
-    Feature-flag scheduling (enable/disable via config)
+/**
+ * Schedules and triggers the Spotify ETL job at configured intervals.
+ * <p>
+ * Responsibilities:
+ * <ul>
+ *     <li>Automatically runs the ETL job using a cron schedule defined in {@link SpotifyEtlConfig}</li>
+ *     <li>Prevents overlapping ETL executions using an {@link AtomicBoolean}</li>
+ *     <li>Supports feature-flagged scheduling to enable/disable ETL runs</li>
+ *     <li>Logs start, completion, and error events for monitoring</li>
+ * </ul>
+ * <p>
+ * The cron expression is injected via Spring's SpEL expression from {@link SpotifyEtlConfig#cron}.
  */
-
-
 @Component
 public class SpotifyEtlScheduler {
     private final SpotifyEtlJob etlJob;

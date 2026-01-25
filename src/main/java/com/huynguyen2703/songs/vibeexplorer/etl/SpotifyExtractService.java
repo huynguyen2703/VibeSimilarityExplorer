@@ -5,30 +5,24 @@ import com.huynguyen2703.songs.vibeexplorer.services.externals.SpotifyAuthServic
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-
-/*
-    Responsibility:
-
-    Communicate with Spotify Web API
-
-    Fetch raw JSON / DTOs (tracks, artists, albums)
-
-    TODOs:
-
-    Inject SpotifyAuthService
-
-    Inject WebClient (Spotify an API client)
-
-    Implement search-by-keyword extraction
-
-    Support pagination (limit, offset)
-
-    Return Spotify DTOs (NOT entities)
-
-    Handle rate limits & retries (later)
+/**
+ * Service responsible for communicating with the Spotify Web API to fetch raw track data.
+ * <p>
+ * Responsibilities:
+ * <ul>
+ *     <li>Authenticate using {@link SpotifyAuthService}</li>
+ *     <li>Query Spotify API for tracks, artists, and albums using {@link SpotifyApiService}</li>
+ *     <li>Support pagination via limit and offset parameters</li>
+ *     <li>Return Spotify DTOs (not JPA entities)</li>
+ *     <li>Designed for reactive, non-blocking calls via {@link Mono}</li>
+ * </ul>
+ * <p>
+ * TODOs:
+ * <ul>
+ *     <li>Handle Spotify rate limits and retries</li>
+ *     <li>Enhance error handling for failed API calls</li>
+ * </ul>
  */
-
-
 @Service
 public class SpotifyExtractService {
     SpotifyAuthService spotifyAuthService;

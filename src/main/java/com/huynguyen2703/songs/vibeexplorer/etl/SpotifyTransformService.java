@@ -44,7 +44,7 @@ public class SpotifyTransformService {
         List<SpotifyTrackDto> spotifyTracks = spotifyTracksDto.items();
         List<Song> songs = new ArrayList<>();
         for (SpotifyTrackDto spotifyTrack : spotifyTracks) {
-            String spotifyId = extractSpotifyId(spotifyTrack.id().trim());
+            String spotifyId = extractSpotifyId(spotifyTrack.id());
             if (spotifyId == null) {
                 System.out.println("Skipping track without Spotify ID: " + spotifyTrack.name());
                 continue;
@@ -92,6 +92,6 @@ public class SpotifyTransformService {
         if (spotifyId == null || spotifyId.isEmpty()) {
             return null;
         }
-        return spotifyId;
+        return spotifyId.trim();
     }
 }

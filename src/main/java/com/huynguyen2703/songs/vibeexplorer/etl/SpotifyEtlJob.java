@@ -57,7 +57,7 @@ public class SpotifyEtlJob {
 
                     // Extract Service
                     int finalPage = page;
-                    SpotifyTracksDto rawTracks = spotifyExtractService.extractTracks(keyword, market, offset, limit)
+                    SpotifyTracksDto rawTracks = spotifyExtractService.extractTracks(keyword, market, limit, offset)
                             .retry(RETRIES)
                             .onErrorResume(e -> {
                                 System.err.println("API call failed for keyword=" + keyword + ", page=" + (finalPage + 1) + ": " + e.getMessage());

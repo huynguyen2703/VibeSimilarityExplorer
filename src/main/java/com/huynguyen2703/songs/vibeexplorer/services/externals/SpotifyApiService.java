@@ -1,5 +1,6 @@
 package com.huynguyen2703.songs.vibeexplorer.services.externals;
 
+import com.huynguyen2703.songs.vibeexplorer.dto.spotify.SpotifySearchResponse;
 import com.huynguyen2703.songs.vibeexplorer.dto.spotify.SpotifyTracksDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -27,7 +28,8 @@ public class SpotifyApiService {
                         .build())
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
-                .bodyToMono(SpotifyTracksDto.class)
+                .bodyToMono(SpotifySearchResponse.class)
+                .map(SpotifySearchResponse::tracks)
                 .onErrorResume(WebClientResponseException.class, e ->
                         Mono.error(new RuntimeException("Spotify API Error " + e.getResponseBodyAsString())));
     }

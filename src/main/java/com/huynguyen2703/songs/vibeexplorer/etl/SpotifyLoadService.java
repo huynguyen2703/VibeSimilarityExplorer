@@ -51,7 +51,7 @@ public class SpotifyLoadService {
         Map<String, Song> uniqueSongs = new HashMap<>();
         for (Song song : songs) {
             String spotifyId = song.getSpotifyId();
-            if (spotifyId != null && !spotifyId.equals("Unknown") && !uniqueSongs.containsKey(spotifyId)) {
+            if (spotifyId != null && !spotifyId.trim().isEmpty() && !spotifyId.equals("Unknown") && !uniqueSongs.containsKey(spotifyId)) {
                 uniqueSongs.put(song.getSpotifyId(), song);
             } else {
                 System.out.println("Skipping duplicate or invalid song: " + song.getTitle());
